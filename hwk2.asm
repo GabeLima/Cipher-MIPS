@@ -1,6 +1,5 @@
 # Gabriello Lima
 # glima
-# 112803276
 
 ############################ DO NOT CREATE A .data SECTION ############################
 ############################ DO NOT CREATE A .data SECTION ############################
@@ -496,7 +495,7 @@ encrypt_letter:
 	mod_letter_index:
 		div $t1, $t6
 		mfhi $t6
-		#addi $t6, $t6, 1										########
+		#addi $t6, $t6, 1										
 		#t6 now stores y, or the second half of the equation
 		add $t6, $t4, $t6 #t6 now stores z, or the end result of the equation
 		add $t3, $t3, $t6 #this will give us the index of the ciphertext character
@@ -561,14 +560,14 @@ encrypt:
 	#move $t1, $v0 #t1 now stores the sorted alphabet
 	#6 Allocate at least 63 bytes of memory on the stack to temporarily store the plaintext_alphabet string needed in the following step. Be sure to deallocate this memory later.
 	addi $sp, $sp, -64 				#used to be -63
-	move $s6, $sp #t2 stores the postion of plaintext_alphabet now						#t2 was replaced with s6
+	move $s6, $sp #t2 stores the postion of plaintext_alphabet now						
 	#7 Call generate_plaintext_alphabet(plaintext_alphabet, lowercase_letters).
 	move $a0, $s6 #t2 stores the postion of plaintext_alphabet
 	move $a1, $s5 #base address of lowercase letters #move $a1, $t1 #t1 stires the sorted alphabet
 	jal generate_plaintext_alphabet
 	#8 Allocate at least 63 bytes of memory on the stack to temporarily store the ciphertext_alphabet string needed in the following step. Be sure to deallocate this memory later.
 	addi $sp, $sp, -64				#used to be -63
-	move $s7, $sp #stores the base address of cipher_text					#t3 is replaced with s7
+	move $s7, $sp #stores the base address of cipher_text					
 	#9 Call generate_ciphertext_alphabet(ciphertext_alphabet, keyphrase).
 	move $a0, $s7 #allocated memory for ciphertext alphabet
 	move $a1, $s2 #keyphrase
@@ -599,10 +598,10 @@ encrypt:
 	li $t0, 'z'
 	li $t4, 'a'
 	li $t1, '\0'
-	li $s2, 0 #counts lowercase letters encrypted				#place t2 w/ s2
-	li $s3, 0 #counts nonlowercase letters not encryped			#replace t3 w. s3
+	li $s2, 0 #counts lowercase letters encrypted				
+	li $s3, 0 #counts nonlowercase letters not encryped			
 	li $s4, -1
-	encrypt_each_letter_loop:			#replaced all instances of t7 w/ s4
+	encrypt_each_letter_loop:			
 		addi $s4, $s4, 1
 		li $t0, 'z'
 		li $t4, 'a'
@@ -659,7 +658,7 @@ encrypt:
 		move $v0, $s2
 		move $v1, $s3
 		#deallocate stack and get ra off of it
-		addi $sp, $sp, 260 #deallocate until we reach ra  			#used to be 257
+		addi $sp, $sp, 260 #deallocate until we reach ra  			
 		lw $ra, 0($sp) #get old ra off stack
 		#restore s values
 		lw $s0, 4($sp) 
@@ -708,7 +707,7 @@ decrypt:
 	move $s5, $sp #s5 stores the base address of lowercase_letters
 	li $t7, 'a'
 	li $t4, 'z'
-	addi $t4, $t4, 1 #increment z to whatever comes after							#t6 was replaced with s5
+	addi $t4, $t4, 1 #increment z to whatever comes after							
 	add_lowercase_letters_on_stack_decrypt_loop:
 		sb $t7, 0($s5) #store letter on stack
 		addi $t7, $t7, 1 #increment letter
@@ -723,15 +722,15 @@ decrypt:
 	jal sort_alphabet_by_count #returns in v0 the sorted alphabet
 	#move $t1, $v0 #t1 now stores the sorted alphabet
 	#6 Allocate at least 63 bytes of memory on the stack to temporarily store the plaintext_alphabet string needed in the following step. Be sure to deallocate this memory later.
-	addi $sp, $sp, -64 				#used to be -63
-	move $s6, $sp #t2 stores the postion of plaintext_alphabet now						#t2 was replaced with s6
+	addi $sp, $sp, -64 				
+	move $s6, $sp #t2 stores the postion of plaintext_alphabet now						
 	#7 Call generate_plaintext_alphabet(plaintext_alphabet, lowercase_letters).
 	move $a0, $s6 #t2 stores the postion of plaintext_alphabet
 	move $a1, $s5 #base address of lowercase letters #move $a1, $t1 #t1 stires the sorted alphabet
 	jal generate_plaintext_alphabet
 	#8 Allocate at least 63 bytes of memory on the stack to temporarily store the ciphertext_alphabet string needed in the following step. Be sure to deallocate this memory later.
-	addi $sp, $sp, -64				#used to be -63
-	move $s7, $sp #stores the base address of cipher_text					#t3 is replaced with s7
+	addi $sp, $sp, -64				
+	move $s7, $sp #stores the base address of cipher_text					
 	#9 Call generate_ciphertext_alphabet(ciphertext_alphabet, keyphrase).
 	move $a0, $s7 #allocated memory for ciphertext alphabet
 	move $a1, $s2 #keyphrase
@@ -818,7 +817,7 @@ decrypt:
 		sub $s5, $s5, $s4 
 		move $v1, $s5
 		#deallocate stack and get ra off of it
-		addi $sp, $sp, 260 #deallocate until we reach ra  			#used to be 257
+		addi $sp, $sp, 260 #deallocate until we reach ra
 		lw $ra, 0($sp) #get old ra off stack
 		#restore s values
 		lw $s0, 4($sp) 
